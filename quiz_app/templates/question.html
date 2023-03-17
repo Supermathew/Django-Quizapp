@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{ cate.title }}</title>
+{% endblock title %}
+{% block content %}
+{% if messages %}
+   {% for message in messages %}
+   <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Great!</strong>{{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </button>
+   </div>
+   {% endfor %}
+   {% endif %}
+{% if one_question %}
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10 col-lg-10">
+                <div class="border">
+                    <div class="question bg-white p-3 border-bottom">
+                        <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                            <h4>MCQ Quiz-{{cate.title}}</h4>
+                            <div class="timer">
+                                <div class="time_left_txt">Time Left</div>
+                                <div class="timer_sec">15</div>
+                            </div>
+                            <div class="time_line"></div>
+                            
+                            <span>{{ one_question.id }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="question bg-white p-3 border-bottom">
+                        <div class="d-flex flex-row align-items-center question-title">
+                            <h3 class="text-danger">Q.</h3>
+                            <h5 class="mt-1 ml-2">{{one_question.question}}?</h5>
+                        </div>
+                        <form action="{% url 'submit' cate.id one_question.id %}" method="POST" >
+                            {% csrf_token %}
+                        
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rightans" value="{{one_question.opt_1}}" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    {{one_question.opt_1}}
+                                </label>
+                              </div>    
+                    
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rightans" value="{{one_question.opt_1}}" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                {{one_question.opt_2}}
+                            </label>
+                          </div>  
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio"  name="rightans" value="{{one_question.opt_1}}" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                {{one_question.opt_3}}
+                            </label>
+                          </div>  
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio"  name="rightans" value="{{one_question.opt_1}}" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{one_question.opt_4}}
+                            </label>
+                          </div>  
+                        <button type="submit" value="submit" class="btn btn-primary mt-3 submitbtn">Submit</button>
+                        </form>
+                        <form action="{% url 'skiped' cate.id one_question.id %}" method="POST" >
+                            {% csrf_token %}
+                        <button type="submit" value="Skip" class="btn btn-primary mt-3 skipbtn">Skip</button>
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% comment %} <script type="text/javascript" src="">
+</script>
+<script type="text/javascript">
+     $(document).ready(function(){
+        $(".skipbtn").on('click',function(){
+
+            return httpsresponce
+        })
+
+
+     }) {% endcomment %}
+
+
+{% endblock content %}

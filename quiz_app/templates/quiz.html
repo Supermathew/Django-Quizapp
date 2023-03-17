@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block busname %}
+<busname>Quizapp </busname>
+{% endblock busname %}
+{% block content %}
+<div class="container">
+    </br>
+    {% if allshops %}
+    <div class="row row-cols-1 row-cols-md-5">
+        {% for cat in allshops %}
+        <div class="col mb-3">
+            <div class="card h-100">
+                <img src="{{cat.image.url}}" class="card-img-top img-fluid" alt="{{ cat.busname}}">
+                <div class="card-body">
+                    <h5 class="card-busname">{{ cat.busname}}</h5>
+                    <p class="card-text">{{ cat.details}}</p>
+                    {% comment %} <a href= "{% url 'question' cat.id  %}"  class="btn btn-primary">{{ cat.busname}} Take Quiz</a> {% endcomment %}
+                    <!-- Button trigger modal -->
+                    <a role="button"  class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal{{cat.id}}">
+                        Take Quiz
+                        </a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal{{cat.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-busname fs-5" id="exampleModalLabel">Information</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="info-list">
+                                            <div class="info">1. You will have only <span>15 seconds</span> per each question.</div>
+                                            <div class="info">2. Once you select your answer, it can't be undone.</div>
+                                            <div class="info">3. You can't select any option once time goes off.</div>
+                                            <div class="info">4. You can't exit from the Quiz while you're playing.</div>
+                                            <div class="info">5. You'll get points on the basis of your correct answers.</div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <a href= "{% url 'question' cat.id  %}"  class="btn btn-primary">Take Quiz</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    {% if cat.submit  %}
+                    <a href= "{% url 'result' cat.id  %}"  class="btn btn-primary mt-3">Show Result</a>
+                    {% else %}
+                    <button type="button" class="btn btn-primary mt-3" onclick="myFunction()">Show Result</button>
+
+<script>
+function myFunction() {
+  alert("Please Take YOUR Quiz To See Result!");
+}
+</script>
+
+                    
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

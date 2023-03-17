@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Result - {{cat.title}}</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+<h2 class="my-4">Result-{{.title}}</h2>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">question</th>
+        <th scope="col">Correct Response</th>
+        <th scope="col">Submitted Response</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in result %}
+      <tr>
+        <td>{{ row.question}}</td> 
+        <td>{{ row.question.opt_ans}}</td>
+        {% if row.question.opt_ans == row.rightans %}
+        <td class="table-success" >{{ row.rightans}}</td>
+        {%else%}
+        <td class="table-danger">{{ row.rightans}}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h2 class="my-4">Result-{{.title}}</h2>
+
+  <table class="table table-bordered">
+      <tr>
+        <th>Total Skipped Question</th>
+        <td>{{ skip }}</td>
+      </tr>
+      <tr>
+        <th>Total question Attempted</th> 
+        <td>{{attempt}}</td>
+      </tr>
+      <tr>
+        <th>Right Answer</th>
+        <td>{{rightans}}</td>
+      </tr>
+        <th>Your percentage</th>
+        <td>{{percentage}}</td>
+  </table>
+  <div class="text-center">
+    <a href= "{% url 'index' %}"  class="btn btn-primary mt-3">Go Back To Quiz Page </a>
+  </div>
+</div>
+
+  
+{% endblock content %}
